@@ -111,9 +111,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($tenant['name'] ?? 'FleetVision'); ?></title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="/style.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <?php if(!empty($tenant['logo_url'])): ?><link rel="icon" href="<?php echo $tenant['logo_url']; ?>" type="image/x-icon"><?php endif; ?>
     
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -126,27 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             --secondary: <?php echo $tenant['secondary_color'] ?? '#1e293b'; ?>;
             --bg-page: #f8fafc;
         }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-page); color: #334155; }
-        
-        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 600; border-radius: 0.5rem; transition: all 0.2s; cursor: pointer; gap: 0.5rem; }
-        .btn-primary { background-color: var(--primary); color: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-secondary { background-color: white; color: #475569; border: 1px solid #cbd5e1; }
-        .input-std { width: 100%; padding: 0.5rem 0.75rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background-color: white; font-size: 0.875rem; }
-        
-        .sidebar-link { display: flex; align-items: center; padding: 0.75rem 1rem; color: rgba(255,255,255,0.7); transition: all 0.2s; border-left: 3px solid transparent; font-size: 0.875rem; white-space: nowrap; }
-        .sidebar-link:hover, .sidebar-link.active { background-color: rgba(255,255,255,0.1); color: white; border-left-color: var(--primary); }
-        .sidebar-header { padding: 1.5rem 1rem 0.5rem 1rem; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.4); white-space: nowrap; }
-        
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        .fade-in { animation: fadeIn 0.2s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-        
-        #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast { background: white; padding: 12px 16px; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-left: 4px solid var(--primary); animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
 </head>
 <body class="bg-gray-100 font-sans flex h-screen overflow-hidden">

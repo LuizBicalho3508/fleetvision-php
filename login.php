@@ -33,7 +33,11 @@ $rgbaCard = "rgba($r, $g, $b, $opacity)";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | <?php echo htmlspecialchars($tenant['name']); ?></title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="/style.css">
+    
     <?php if(!empty($tenant['logo_url'])): ?><link rel="icon" href="<?php echo $tenant['logo_url']; ?>" type="image/x-icon"><?php endif; ?>
     
     <style>

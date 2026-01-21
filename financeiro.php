@@ -319,7 +319,7 @@ if (!isset($_SESSION['user_id'])) exit;
 </div>
 
 <script>
-    const API_URL = '../api_dados.php';
+    const API_URL = '../api_financeiro.php';
     const LIMIT = 10;
     
     let chargeOffset = 0; let chargeFilter = '';
