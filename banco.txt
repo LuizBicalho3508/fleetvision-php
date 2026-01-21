@@ -1,0 +1,454 @@
+traccar=# SELECT 
+traccar-#     table_name AS tabela,
+traccar-#     ordinal_position AS ordem,
+traccar-#     column_name AS coluna,
+traccar-#     data_type AS tipo_dado,
+traccar-#     character_maximum_length AS tamanho_texto,
+traccar-#     is_nullable AS aceita_nulo,
+traccar-#     column_default AS valor_padrao
+traccar-# FROM 
+traccar-#     information_schema.columns
+traccar-# WHERE 
+traccar-#     table_schema = 'public' 
+traccar-# ORDER BY 
+traccar-#     table_name, 
+traccar-#     ordinal_position;
+         tabela         | ordem |        coluna        |          tipo_dado          | tamanho_texto | aceita_nulo |                                                                                    valor_padrao                                                                                    
+------------------------+-------+----------------------+-----------------------------+---------------+-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ databasechangelog      |     1 | id                   | character varying           |           255 | NO          | 
+ databasechangelog      |     2 | author               | character varying           |           255 | NO          | 
+ databasechangelog      |     3 | filename             | character varying           |           255 | NO          | 
+ databasechangelog      |     4 | dateexecuted         | timestamp without time zone |               | NO          | 
+ databasechangelog      |     5 | orderexecuted        | integer                     |               | NO          | 
+ databasechangelog      |     6 | exectype             | character varying           |            10 | NO          | 
+ databasechangelog      |     7 | md5sum               | character varying           |            35 | YES         | 
+ databasechangelog      |     8 | description          | character varying           |           255 | YES         | 
+ databasechangelog      |     9 | comments             | character varying           |           255 | YES         | 
+ databasechangelog      |    10 | tag                  | character varying           |           255 | YES         | 
+ databasechangelog      |    11 | liquibase            | character varying           |            20 | YES         | 
+ databasechangelog      |    12 | contexts             | character varying           |           255 | YES         | 
+ databasechangelog      |    13 | labels               | character varying           |           255 | YES         | 
+ databasechangelog      |    14 | deployment_id        | character varying           |            10 | YES         | 
+ databasechangeloglock  |     1 | id                   | integer                     |               | NO          | 
+ databasechangeloglock  |     2 | locked               | boolean                     |               | NO          | 
+ databasechangeloglock  |     3 | lockgranted          | timestamp without time zone |               | YES         | 
+ databasechangeloglock  |     4 | lockedby             | character varying           |           255 | YES         | 
+ saas_address_cache     |     1 | lat                  | numeric                     |               | NO          | 
+ saas_address_cache     |     2 | lon                  | numeric                     |               | NO          | 
+ saas_address_cache     |     3 | address              | text                        |               | YES         | 
+ saas_address_cache     |     4 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_branches          |     1 | id                   | integer                     |               | NO          | nextval('saas_branches_id_seq'::regclass)
+ saas_branches          |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_branches          |     3 | name                 | character varying           |           100 | NO          | 
+ saas_branches          |     4 | address              | character varying           |           255 | YES         | 
+ saas_branches          |     5 | phone                | character varying           |            20 | YES         | 
+ saas_branches          |     6 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_clients           |     1 | id                   | integer                     |               | NO          | nextval('saas_clients_id_seq'::regclass)
+ saas_clients           |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_clients           |     3 | name                 | character varying           |           255 | NO          | 
+ saas_clients           |     4 | document             | character varying           |            50 | YES         | 
+ saas_clients           |     5 | phone                | character varying           |            50 | YES         | 
+ saas_clients           |     6 | email                | character varying           |           255 | YES         | 
+ saas_clients           |     7 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_command_logs      |     1 | id                   | integer                     |               | NO          | nextval('saas_command_logs_id_seq'::regclass)
+ saas_command_logs      |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_command_logs      |     3 | user_id              | integer                     |               | NO          | 
+ saas_command_logs      |     4 | vehicle_id           | integer                     |               | NO          | 
+ saas_command_logs      |     5 | command_type         | character varying           |            50 | NO          | 
+ saas_command_logs      |     6 | status               | character varying           |            20 | YES         | 'sent'::character varying
+ saas_command_logs      |     7 | ip_address           | character varying           |            45 | YES         | 
+ saas_command_logs      |     8 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_crm_leads         |     1 | id                   | integer                     |               | NO          | nextval('saas_crm_leads_id_seq'::regclass)
+ saas_crm_leads         |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_crm_leads         |     3 | name                 | character varying           |           100 | NO          | 
+ saas_crm_leads         |     4 | company              | character varying           |           100 | YES         | 
+ saas_crm_leads         |     5 | phone                | character varying           |            20 | YES         | 
+ saas_crm_leads         |     6 | email                | character varying           |           100 | YES         | 
+ saas_crm_leads         |     7 | status               | character varying           |            20 | YES         | 'new'::character varying
+ saas_crm_leads         |     8 | value                | numeric                     |               | YES         | 0
+ saas_crm_leads         |     9 | notes                | text                        |               | YES         | 
+ saas_crm_leads         |    10 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_crm_leads         |    11 | updated_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_crm_leads         |    12 | expected_qty         | integer                     |               | YES         | 0
+ saas_custom_icons      |     1 | id                   | integer                     |               | NO          | nextval('saas_custom_icons_id_seq'::regclass)
+ saas_custom_icons      |     2 | tenant_id            | integer                     |               | YES         | 
+ saas_custom_icons      |     3 | name                 | character varying           |            50 | NO          | 
+ saas_custom_icons      |     4 | url                  | character varying           |           255 | NO          | 
+ saas_custom_icons      |     5 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_custom_icons      |     6 | category             | character varying           |            50 | YES         | 'custom'::character varying
+ saas_customers         |     1 | id                   | integer                     |               | NO          | nextval('saas_customers_id_seq'::regclass)
+ saas_customers         |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_customers         |     3 | name                 | character varying           |           100 | NO          | 
+ saas_customers         |     4 | type                 | character varying           |            10 | YES         | 'PJ'::character varying
+ saas_customers         |     5 | document             | character varying           |            20 | YES         | 
+ saas_customers         |     6 | email                | character varying           |           100 | YES         | 
+ saas_customers         |     7 | phone                | character varying           |            20 | YES         | 
+ saas_customers         |     8 | address              | text                        |               | YES         | 
+ saas_customers         |     9 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_customers         |    10 | contract_start       | date                        |               | YES         | 
+ saas_customers         |    11 | contract_end         | date                        |               | YES         | 
+ saas_customers         |    12 | due_day              | integer                     |               | YES         | 10
+ saas_customers         |    13 | price_per_vehicle    | numeric                     |               | YES         | 0.00
+ saas_customers         |    14 | notes                | text                        |               | YES         | 
+ saas_customers         |    15 | asaas_id             | character varying           |            50 | YES         | 
+ saas_customers         |    16 | asaas_customer_id    | character varying           |            50 | YES         | 
+ saas_customers         |    17 | financial_status     | character varying           |            20 | YES         | 'ok'::character varying
+ saas_customers         |    18 | asaas_customer_name  | character varying           |           255 | YES         | 
+ saas_customers         |    19 | contract_value       | numeric                     |               | YES         | 0.00
+ saas_customers         |    20 | contract_status      | character varying           |            20 | YES         | 'active'::character varying
+ saas_customers         |    21 | unit_price           | numeric                     |               | YES         | 0.00
+ saas_driver_journeys   |     1 | id                   | integer                     |               | NO          | nextval('saas_driver_journeys_id_seq'::regclass)
+ saas_driver_journeys   |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_driver_journeys   |     3 | vehicle_id           | integer                     |               | NO          | 
+ saas_driver_journeys   |     4 | driver_id            | integer                     |               | NO          | 
+ saas_driver_journeys   |     5 | start_time           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_driver_journeys   |     6 | end_time             | timestamp without time zone |               | YES         | 
+ saas_driver_journeys   |     7 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_drivers           |     1 | id                   | integer                     |               | NO          | nextval('saas_drivers_id_seq'::regclass)
+ saas_drivers           |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_drivers           |     3 | name                 | character varying           |           100 | NO          | 
+ saas_drivers           |     4 | license_number       | character varying           |            50 | YES         | 
+ saas_drivers           |     5 | phone                | character varying           |            20 | YES         | 
+ saas_drivers           |     6 | traccar_driver_id    | integer                     |               | YES         | 
+ saas_drivers           |     7 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_drivers           |     8 | cnh_number           | character varying           |            20 | YES         | 
+ saas_drivers           |     9 | rfid_tag             | character varying           |            50 | YES         | 
+ saas_drivers           |    10 | customer_id          | integer                     |               | YES         | 
+ saas_event_actions     |     1 | event_id             | bigint                      |               | NO          | 
+ saas_event_actions     |     2 | user_id              | integer                     |               | NO          | 
+ saas_event_actions     |     3 | action_type          | character varying           |            50 | YES         | 'resolve'::character varying
+ saas_event_actions     |     4 | notes                | text                        |               | YES         | 
+ saas_event_actions     |     5 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_inventory         |     1 | id                   | integer                     |               | NO          | nextval('saas_inventory_id_seq'::regclass)
+ saas_inventory         |     2 | type                 | character varying           |            20 | NO          | 
+ saas_inventory         |     3 | identifier           | character varying           |           100 | NO          | 
+ saas_inventory         |     4 | model                | character varying           |           100 | YES         | 
+ saas_inventory         |     5 | secondary_info       | character varying           |           100 | YES         | 
+ saas_inventory         |     6 | status               | character varying           |            20 | YES         | 'stock'::character varying
+ saas_inventory         |     7 | tenant_id            | integer                     |               | YES         | 
+ saas_inventory         |     8 | vehicle_id           | integer                     |               | YES         | 
+ saas_inventory         |     9 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_plans             |     1 | id                   | integer                     |               | NO          | nextval('saas_plans_id_seq'::regclass)
+ saas_plans             |     2 | name                 | character varying           |           100 | NO          | 
+ saas_plans             |     3 | price                | numeric                     |               | NO          | 
+ saas_plans             |     4 | features             | jsonb                       |               | YES         | 
+ saas_plans             |     5 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_ranking_config    |     1 | tenant_id            | integer                     |               | NO          | 
+ saas_ranking_config    |     2 | rules                | jsonb                       |               | YES         | '{"speed_limit": 110, "idle_penalty": 1, "idle_interval": 30, "speed_penalty": 5, "harsh_event_penalty": 5, "journey_daily_penalty": 20, "journey_continuous_penalty": 10}'::jsonb
+ saas_ranking_config    |     3 | updated_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_roles             |     1 | id                   | integer                     |               | NO          | nextval('saas_roles_id_seq'::regclass)
+ saas_roles             |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_roles             |     3 | name                 | character varying           |           100 | NO          | 
+ saas_roles             |     4 | permissions          | jsonb                       |               | YES         | '[]'::jsonb
+ saas_roles             |     5 | created_at           | timestamp without time zone |               | YES         | now()
+ saas_roles             |     6 | updated_at           | timestamp without time zone |               | YES         | now()
+ saas_stock             |     1 | id                   | integer                     |               | NO          | nextval('saas_stock_id_seq'::regclass)
+ saas_stock             |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_stock             |     3 | type                 | character varying           |            20 | NO          | 
+ saas_stock             |     4 | brand                | character varying           |            50 | YES         | 
+ saas_stock             |     5 | model                | character varying           |            50 | YES         | 
+ saas_stock             |     6 | identifier           | character varying           |           100 | NO          | 
+ saas_stock             |     7 | supplier             | character varying           |           100 | YES         | 
+ saas_stock             |     8 | status               | character varying           |            20 | YES         | 'available'::character varying
+ saas_stock             |     9 | notes                | text                        |               | YES         | 
+ saas_stock             |    10 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_stock             |    11 | traccar_device_id    | integer                     |               | YES         | 
+ saas_stock             |    12 | imei                 | character varying           |            50 | YES         | 
+ saas_tenants           |     1 | id                   | integer                     |               | NO          | nextval('saas_tenants_id_seq'::regclass)
+ saas_tenants           |     2 | slug                 | character varying           |            50 | NO          | 
+ saas_tenants           |     3 | name                 | character varying           |           100 | NO          | 
+ saas_tenants           |     4 | logo_text            | character varying           |            50 | NO          | 
+ saas_tenants           |     5 | primary_color        | character varying           |             7 | NO          | 
+ saas_tenants           |     6 | secondary_color      | character varying           |             7 | NO          | 
+ saas_tenants           |     7 | branches             | jsonb                       |               | NO          | 
+ saas_tenants           |     8 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_tenants           |     9 | document             | character varying           |            20 | YES         | 
+ saas_tenants           |    10 | address              | text                        |               | YES         | 
+ saas_tenants           |    11 | contact_phone        | character varying           |            20 | YES         | 
+ saas_tenants           |    12 | financial_status     | character varying           |            20 | YES         | 'active'::character varying
+ saas_tenants           |    13 | antt_token           | character varying           |           255 | YES         | 
+ saas_tenants           |    14 | antt_login           | character varying           |           100 | YES         | 
+ saas_tenants           |    15 | plan_id              | integer                     |               | YES         | 
+ saas_tenants           |    16 | due_day              | integer                     |               | YES         | 10
+ saas_tenants           |    17 | logo_url             | character varying           |           255 | YES         | 
+ saas_tenants           |    18 | login_bg_url         | character varying           |           255 | YES         | 
+ saas_tenants           |    19 | login_message        | character varying           |           255 | YES         | 
+ saas_tenants           |    20 | login_btn_color      | character varying           |             7 | YES         | '#3b82f6'::character varying
+ saas_tenants           |    21 | login_card_opacity   | integer                     |               | YES         | 95
+ saas_tenants           |    22 | login_card_bg        | character varying           |             7 | YES         | '#ffffff'::character varying
+ saas_tenants           |    23 | login_text_color     | character varying           |             7 | YES         | '#374151'::character varying
+ saas_tenants           |    24 | price_per_vehicle    | numeric                     |               | YES         | 0.00
+ saas_tenants           |    25 | email_financeiro     | character varying           |           150 | YES         | 
+ saas_tenants           |    26 | unit_price           | numeric                     |               | YES         | 0.00
+ saas_tenants           |    27 | asaas_token          | text                        |               | YES         | 
+ saas_tenants           |    28 | block_tolerance_days | integer                     |               | YES         | 3
+ saas_users             |     1 | id                   | integer                     |               | NO          | nextval('saas_users_id_seq'::regclass)
+ saas_users             |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_users             |     3 | name                 | character varying           |           100 | NO          | 
+ saas_users             |     4 | email                | character varying           |           100 | NO          | 
+ saas_users             |     5 | password             | character varying           |           255 | NO          | 
+ saas_users             |     6 | role                 | character varying           |            20 | YES         | 'user'::character varying
+ saas_users             |     7 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_users             |     8 | branch_id            | integer                     |               | YES         | 
+ saas_users             |     9 | active               | boolean                     |               | YES         | true
+ saas_users             |    10 | avatar_url           | text                        |               | YES         | 
+ saas_users             |    11 | alert_config         | jsonb                       |               | YES         | '{"sos": true, "fence": true, "speed": true, "driver": true, "battery": true, "ignition": true}'::jsonb
+ saas_users             |    12 | customer_id          | integer                     |               | YES         | 
+ saas_users             |    13 | role_id              | integer                     |               | YES         | 
+ saas_users             |    14 | deleted_at           | timestamp without time zone |               | YES         | 
+ saas_vehicles          |     1 | id                   | integer                     |               | NO          | nextval('saas_vehicles_id_seq'::regclass)
+ saas_vehicles          |     2 | tenant_id            | integer                     |               | NO          | 
+ saas_vehicles          |     3 | name                 | character varying           |           100 | NO          | 
+ saas_vehicles          |     4 | plate                | character varying           |            20 | YES         | 
+ saas_vehicles          |     5 | identifier           | character varying           |            50 | NO          | 
+ saas_vehicles          |     6 | traccar_device_id    | integer                     |               | YES         | 
+ saas_vehicles          |     7 | model                | character varying           |            50 | YES         | 
+ saas_vehicles          |     8 | status               | character varying           |            20 | YES         | 'active'::character varying
+ saas_vehicles          |     9 | created_at           | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ saas_vehicles          |    10 | branch_id            | integer                     |               | YES         | 
+ saas_vehicles          |    11 | customer_id          | integer                     |               | YES         | 
+ saas_vehicles          |    12 | user_id              | integer                     |               | YES         | 
+ saas_vehicles          |    13 | icon_id              | integer                     |               | YES         | 
+ saas_vehicles          |    14 | current_driver_id    | integer                     |               | YES         | 
+ saas_vehicles          |    15 | speed_limit          | integer                     |               | YES         | 80
+ saas_vehicles          |    16 | fuel_consumption     | numeric                     |               | YES         | 10.0
+ saas_vehicles          |    17 | idle_threshold       | integer                     |               | YES         | 5
+ saas_vehicles          |    18 | client_id            | integer                     |               | YES         | 
+ saas_vehicles          |    19 | category             | character varying           |            50 | YES         | 
+ saas_vehicles          |    20 | last_telemetry       | text                        |               | YES         | 
+ saas_vehicles          |    21 | status_changed_at    | timestamp without time zone |               | YES         | CURRENT_TIMESTAMP
+ tc_actions             |     1 | id                   | integer                     |               | NO          | 
+ tc_actions             |     2 | actiontime           | timestamp without time zone |               | NO          | 
+ tc_actions             |     3 | address              | character varying           |            48 | YES         | 
+ tc_actions             |     4 | userid               | integer                     |               | YES         | 
+ tc_actions             |     5 | actiontype           | character varying           |            32 | NO          | 
+ tc_actions             |     6 | objecttype           | character varying           |            32 | YES         | 
+ tc_actions             |     7 | objectid             | integer                     |               | YES         | 
+ tc_actions             |     8 | attributes           | character varying           |          4000 | NO          | 
+ tc_attributes          |     1 | id                   | integer                     |               | NO          | 
+ tc_attributes          |     2 | description          | character varying           |          4000 | NO          | 
+ tc_attributes          |     3 | type                 | character varying           |           128 | NO          | 
+ tc_attributes          |     4 | attribute            | character varying           |           128 | NO          | 
+ tc_attributes          |     5 | expression           | character varying           |          4000 | NO          | 
+ tc_attributes          |     6 | priority             | integer                     |               | NO          | 0
+ tc_calendars           |     1 | id                   | integer                     |               | NO          | 
+ tc_calendars           |     2 | name                 | character varying           |           128 | NO          | 
+ tc_calendars           |     3 | data                 | bytea                       |               | NO          | 
+ tc_calendars           |     4 | attributes           | character varying           |          4000 | NO          | 
+ tc_commands            |     1 | id                   | integer                     |               | NO          | 
+ tc_commands            |     2 | description          | character varying           |          4000 | NO          | 
+ tc_commands            |     3 | type                 | character varying           |           128 | NO          | 
+ tc_commands            |     4 | textchannel          | boolean                     |               | NO          | false
+ tc_commands            |     5 | attributes           | character varying           |          4000 | NO          | 
+ tc_commands_queue      |     1 | id                   | integer                     |               | NO          | 
+ tc_commands_queue      |     2 | deviceid             | integer                     |               | NO          | 
+ tc_commands_queue      |     4 | type                 | character varying           |           128 | NO          | 
+ tc_commands_queue      |     5 | textchannel          | boolean                     |               | NO          | false
+ tc_commands_queue      |     6 | attributes           | character varying           |          4000 | NO          | 
+ tc_device_attribute    |     1 | deviceid             | integer                     |               | NO          | 
+ tc_device_attribute    |     2 | attributeid          | integer                     |               | NO          | 
+ tc_device_command      |     1 | deviceid             | integer                     |               | NO          | 
+ tc_device_command      |     2 | commandid            | integer                     |               | NO          | 
+ tc_device_driver       |     1 | deviceid             | integer                     |               | NO          | 
+ tc_device_driver       |     2 | driverid             | integer                     |               | NO          | 
+ tc_device_geofence     |     1 | deviceid             | integer                     |               | NO          | 
+ tc_device_geofence     |     2 | geofenceid           | integer                     |               | NO          | 
+ tc_device_maintenance  |     1 | deviceid             | integer                     |               | NO          | 
+ tc_device_maintenance  |     2 | maintenanceid        | integer                     |               | NO          | 
+ tc_device_notification |     1 | deviceid             | integer                     |               | NO          | 
+ tc_device_notification |     2 | notificationid       | integer                     |               | NO          | 
+ tc_device_order        |     1 | deviceid             | integer                     |               | NO          | 
+ tc_device_order        |     2 | orderid              | integer                     |               | NO          | 
+ tc_device_report       |     1 | deviceid             | integer                     |               | NO          | 
+ tc_device_report       |     2 | reportid             | integer                     |               | NO          | 
+ tc_devices             |     1 | id                   | integer                     |               | NO          | 
+ tc_devices             |     2 | name                 | character varying           |           128 | NO          | 
+ tc_devices             |     3 | uniqueid             | character varying           |           128 | NO          | 
+ tc_devices             |     4 | lastupdate           | timestamp without time zone |               | YES         | 
+ tc_devices             |     5 | positionid           | integer                     |               | YES         | 
+ tc_devices             |     6 | groupid              | integer                     |               | YES         | 
+ tc_devices             |     7 | attributes           | character varying           |          4000 | YES         | 
+ tc_devices             |     8 | phone                | character varying           |           128 | YES         | 
+ tc_devices             |     9 | model                | character varying           |           128 | YES         | 
+ tc_devices             |    10 | contact              | character varying           |           512 | YES         | 
+ tc_devices             |    11 | category             | character varying           |           128 | YES         | 
+ tc_devices             |    12 | disabled             | boolean                     |               | YES         | false
+ tc_devices             |    13 | status               | character                   |             8 | YES         | 
+ tc_devices             |    15 | expirationtime       | timestamp without time zone |               | YES         | 
+ tc_devices             |    16 | motionstate          | boolean                     |               | YES         | false
+ tc_devices             |    17 | motiontime           | timestamp without time zone |               | YES         | 
+ tc_devices             |    18 | motiondistance       | double precision            |               | YES         | 0
+ tc_devices             |    19 | overspeedstate       | boolean                     |               | YES         | false
+ tc_devices             |    20 | overspeedtime        | timestamp without time zone |               | YES         | 
+ tc_devices             |    21 | overspeedgeofenceid  | integer                     |               | YES         | 0
+ tc_devices             |    22 | motionstreak         | boolean                     |               | YES         | false
+ tc_devices             |    23 | calendarid           | integer                     |               | YES         | 
+ tc_devices             |    24 | motionpositionid     | integer                     |               | YES         | 
+ tc_drivers             |     1 | id                   | integer                     |               | NO          | 
+ tc_drivers             |     2 | name                 | character varying           |           128 | NO          | 
+ tc_drivers             |     3 | uniqueid             | character varying           |           128 | NO          | 
+ tc_drivers             |     4 | attributes           | character varying           |          4000 | NO          | 
+ tc_events              |     1 | id                   | integer                     |               | NO          | 
+ tc_events              |     2 | type                 | character varying           |           128 | NO          | 
+ tc_events              |     3 | eventtime            | timestamp without time zone |               | NO          | 
+ tc_events              |     4 | deviceid             | integer                     |               | YES         | 
+ tc_events              |     5 | positionid           | integer                     |               | YES         | 
+ tc_events              |     6 | geofenceid           | integer                     |               | YES         | 
+ tc_events              |     7 | attributes           | character varying           |          4000 | YES         | 
+ tc_events              |     8 | maintenanceid        | integer                     |               | YES         | 
+ tc_geofences           |     1 | id                   | integer                     |               | NO          | 
+ tc_geofences           |     2 | name                 | character varying           |           128 | NO          | 
+ tc_geofences           |     3 | description          | text                        |               | YES         | 
+ tc_geofences           |     4 | area                 | text                        |               | NO          | 
+ tc_geofences           |     5 | attributes           | text                        |               | YES         | 
+ tc_geofences           |     6 | calendarid           | integer                     |               | YES         | 
+ tc_group_attribute     |     1 | groupid              | integer                     |               | NO          | 
+ tc_group_attribute     |     2 | attributeid          | integer                     |               | NO          | 
+ tc_group_command       |     1 | groupid              | integer                     |               | NO          | 
+ tc_group_command       |     2 | commandid            | integer                     |               | NO          | 
+ tc_group_driver        |     1 | groupid              | integer                     |               | NO          | 
+ tc_group_driver        |     2 | driverid             | integer                     |               | NO          | 
+ tc_group_geofence      |     1 | groupid              | integer                     |               | NO          | 
+ tc_group_geofence      |     2 | geofenceid           | integer                     |               | NO          | 
+ tc_group_maintenance   |     1 | groupid              | integer                     |               | NO          | 
+ tc_group_maintenance   |     2 | maintenanceid        | integer                     |               | NO          | 
+ tc_group_notification  |     1 | groupid              | integer                     |               | NO          | 
+ tc_group_notification  |     2 | notificationid       | integer                     |               | NO          | 
+ tc_group_order         |     1 | groupid              | integer                     |               | NO          | 
+ tc_group_order         |     2 | orderid              | integer                     |               | NO          | 
+ tc_group_report        |     1 | groupid              | integer                     |               | NO          | 
+ tc_group_report        |     2 | reportid             | integer                     |               | NO          | 
+ tc_groups              |     1 | id                   | integer                     |               | NO          | 
+ tc_groups              |     2 | name                 | character varying           |           128 | NO          | 
+ tc_groups              |     3 | groupid              | integer                     |               | YES         | 
+ tc_groups              |     4 | attributes           | character varying           |          4000 | YES         | 
+ tc_keystore            |     1 | id                   | integer                     |               | NO          | 
+ tc_keystore            |     2 | publickey            | bytea                       |               | NO          | 
+ tc_keystore            |     3 | privatekey           | bytea                       |               | NO          | 
+ tc_maintenances        |     1 | id                   | integer                     |               | NO          | 
+ tc_maintenances        |     2 | name                 | character varying           |          4000 | NO          | 
+ tc_maintenances        |     3 | type                 | character varying           |           128 | NO          | 
+ tc_maintenances        |     4 | start                | double precision            |               | NO          | 0
+ tc_maintenances        |     5 | period               | double precision            |               | NO          | 0
+ tc_maintenances        |     6 | attributes           | character varying           |          4000 | NO          | 
+ tc_notifications       |     1 | id                   | integer                     |               | NO          | 
+ tc_notifications       |     2 | type                 | character varying           |           128 | NO          | 
+ tc_notifications       |     3 | attributes           | character varying           |          4000 | YES         | 
+ tc_notifications       |     4 | always               | boolean                     |               | NO          | false
+ tc_notifications       |     5 | calendarid           | integer                     |               | YES         | 
+ tc_notifications       |     6 | notificators         | character varying           |           128 | YES         | 
+ tc_notifications       |     7 | commandid            | integer                     |               | YES         | 
+ tc_notifications       |     8 | description          | character varying           |          4000 | YES         | 
+ tc_orders              |     1 | id                   | integer                     |               | NO          | 
+ tc_orders              |     2 | uniqueid             | character varying           |           128 | NO          | 
+ tc_orders              |     3 | description          | character varying           |           512 | YES         | 
+ tc_orders              |     4 | fromaddress          | character varying           |           512 | YES         | 
+ tc_orders              |     5 | toaddress            | character varying           |           512 | YES         | 
+ tc_orders              |     6 | attributes           | character varying           |          4000 | NO          | 
+ tc_positions           |     1 | id                   | integer                     |               | NO          | 
+ tc_positions           |     2 | protocol             | character varying           |           128 | YES         | 
+ tc_positions           |     3 | deviceid             | integer                     |               | NO          | 
+ tc_positions           |     4 | servertime           | timestamp without time zone |               | NO          | now()
+ tc_positions           |     5 | devicetime           | timestamp without time zone |               | NO          | 
+ tc_positions           |     6 | fixtime              | timestamp without time zone |               | NO          | 
+ tc_positions           |     7 | valid                | boolean                     |               | NO          | 
+ tc_positions           |     8 | latitude             | double precision            |               | NO          | 
+ tc_positions           |     9 | longitude            | double precision            |               | NO          | 
+ tc_positions           |    10 | altitude             | double precision            |               | NO          | 
+ tc_positions           |    11 | speed                | double precision            |               | NO          | 
+ tc_positions           |    12 | course               | double precision            |               | NO          | 
+ tc_positions           |    13 | address              | character varying           |           512 | YES         | 
+ tc_positions           |    14 | attributes           | character varying           |          4000 | YES         | 
+ tc_positions           |    15 | accuracy             | double precision            |               | NO          | 0
+ tc_positions           |    16 | network              | character varying           |          4000 | YES         | 
+ tc_positions           |    17 | geofenceids          | character varying           |           128 | YES         | 
+ tc_reports             |     1 | id                   | integer                     |               | NO          | 
+ tc_reports             |     2 | type                 | character varying           |            32 | NO          | 
+ tc_reports             |     3 | description          | character varying           |           128 | NO          | 
+ tc_reports             |     4 | calendarid           | integer                     |               | NO          | 
+ tc_reports             |     5 | attributes           | character varying           |          4000 | NO          | 
+ tc_revoked_tokens      |     1 | id                   | bigint                      |               | NO          | 
+ tc_servers             |     1 | id                   | integer                     |               | NO          | 
+ tc_servers             |     2 | registration         | boolean                     |               | NO          | false
+ tc_servers             |     3 | latitude             | double precision            |               | NO          | 0
+ tc_servers             |     4 | longitude            | double precision            |               | NO          | 0
+ tc_servers             |     5 | zoom                 | integer                     |               | NO          | 0
+ tc_servers             |     6 | map                  | character varying           |           128 | YES         | 
+ tc_servers             |     7 | bingkey              | character varying           |           128 | YES         | 
+ tc_servers             |     8 | mapurl               | character varying           |           512 | YES         | 
+ tc_servers             |     9 | readonly             | boolean                     |               | NO          | false
+ tc_servers             |    11 | attributes           | character varying           |          4000 | YES         | 
+ tc_servers             |    12 | forcesettings        | boolean                     |               | NO          | false
+ tc_servers             |    13 | coordinateformat     | character varying           |           128 | YES         | 
+ tc_servers             |    14 | devicereadonly       | boolean                     |               | YES         | false
+ tc_servers             |    15 | limitcommands        | boolean                     |               | YES         | false
+ tc_servers             |    16 | poilayer             | character varying           |           512 | YES         | 
+ tc_servers             |    17 | announcement         | character varying           |          4000 | YES         | 
+ tc_servers             |    18 | disablereports       | boolean                     |               | YES         | false
+ tc_servers             |    19 | overlayurl           | character varying           |           512 | YES         | 
+ tc_servers             |    20 | fixedemail           | boolean                     |               | YES         | false
+ tc_statistics          |     1 | id                   | integer                     |               | NO          | 
+ tc_statistics          |     2 | capturetime          | timestamp without time zone |               | NO          | 
+ tc_statistics          |     3 | activeusers          | integer                     |               | NO          | 0
+ tc_statistics          |     4 | activedevices        | integer                     |               | NO          | 0
+ tc_statistics          |     5 | requests             | integer                     |               | NO          | 0
+ tc_statistics          |     6 | messagesreceived     | integer                     |               | NO          | 0
+ tc_statistics          |     7 | messagesstored       | integer                     |               | NO          | 0
+ tc_statistics          |     8 | attributes           | character varying           |          4096 | NO          | 
+ tc_statistics          |     9 | mailsent             | integer                     |               | NO          | 0
+ tc_statistics          |    10 | smssent              | integer                     |               | NO          | 0
+ tc_statistics          |    11 | geocoderrequests     | integer                     |               | NO          | 0
+ tc_statistics          |    12 | geolocationrequests  | integer                     |               | NO          | 0
+ tc_statistics          |    13 | protocols            | character varying           |          4096 | YES         | 
+ tc_user_attribute      |     1 | userid               | integer                     |               | NO          | 
+ tc_user_attribute      |     2 | attributeid          | integer                     |               | NO          | 
+ tc_user_calendar       |     1 | userid               | integer                     |               | NO          | 
+ tc_user_calendar       |     2 | calendarid           | integer                     |               | NO          | 
+ tc_user_command        |     1 | userid               | integer                     |               | NO          | 
+ tc_user_command        |     2 | commandid            | integer                     |               | NO          | 
+ tc_user_device         |     1 | userid               | integer                     |               | NO          | 
+ tc_user_device         |     2 | deviceid             | integer                     |               | NO          | 
+ tc_user_driver         |     1 | userid               | integer                     |               | NO          | 
+ tc_user_driver         |     2 | driverid             | integer                     |               | NO          | 
+ tc_user_geofence       |     1 | userid               | integer                     |               | NO          | 
+ tc_user_geofence       |     2 | geofenceid           | integer                     |               | NO          | 
+ tc_user_group          |     1 | userid               | integer                     |               | NO          | 
+ tc_user_group          |     2 | groupid              | integer                     |               | NO          | 
+ tc_user_maintenance    |     1 | userid               | integer                     |               | NO          | 
+ tc_user_maintenance    |     2 | maintenanceid        | integer                     |               | NO          | 
+ tc_user_notification   |     1 | userid               | integer                     |               | NO          | 
+ tc_user_notification   |     2 | notificationid       | integer                     |               | NO          | 
+ tc_user_order          |     1 | userid               | integer                     |               | NO          | 
+ tc_user_order          |     2 | orderid              | integer                     |               | NO          | 
+ tc_user_report         |     1 | userid               | integer                     |               | NO          | 
+ tc_user_report         |     2 | reportid             | integer                     |               | NO          | 
+ tc_user_user           |     1 | userid               | integer                     |               | NO          | 
+ tc_user_user           |     2 | manageduserid        | integer                     |               | NO          | 
+ tc_users               |     1 | id                   | integer                     |               | NO          | 
+ tc_users               |     2 | name                 | character varying           |           128 | NO          | 
+ tc_users               |     3 | email                | character varying           |           128 | NO          | 
+ tc_users               |     4 | hashedpassword       | character varying           |           128 | YES         | 
+ tc_users               |     5 | salt                 | character varying           |           128 | YES         | 
+ tc_users               |     6 | readonly             | boolean                     |               | NO          | false
+ tc_users               |     7 | administrator        | boolean                     |               | YES         | 
+ tc_users               |     8 | map                  | character varying           |           128 | YES         | 
+ tc_users               |     9 | latitude             | double precision            |               | NO          | 0
+ tc_users               |    10 | longitude            | double precision            |               | NO          | 0
+ tc_users               |    11 | zoom                 | integer                     |               | NO          | 0
+ tc_users               |    13 | attributes           | character varying           |          4000 | YES         | 
+ tc_users               |    14 | coordinateformat     | character varying           |           128 | YES         | 
+ tc_users               |    15 | disabled             | boolean                     |               | YES         | false
+ tc_users               |    16 | expirationtime       | timestamp without time zone |               | YES         | 
+ tc_users               |    17 | devicelimit          | integer                     |               | YES         | '-1'::integer
+ tc_users               |    19 | userlimit            | integer                     |               | YES         | 0
+ tc_users               |    20 | devicereadonly       | boolean                     |               | YES         | false
+ tc_users               |    21 | phone                | character varying           |           128 | YES         | 
+ tc_users               |    22 | limitcommands        | boolean                     |               | YES         | false
+ tc_users               |    23 | login                | character varying           |           128 | YES         | 
+ tc_users               |    24 | poilayer             | character varying           |           512 | YES         | 
+ tc_users               |    25 | disablereports       | boolean                     |               | YES         | false
+ tc_users               |    26 | fixedemail           | boolean                     |               | YES         | false
+ tc_users               |    27 | totpkey              | character varying           |            64 | YES         | 
+ tc_users               |    28 | temporary            | boolean                     |               | YES         | false
+(435 rows)
+         
